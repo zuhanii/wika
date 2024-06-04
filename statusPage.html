@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Status</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa; /* light gray */
+            color: #333; /* dark gray */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff; /* white */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff; /* blue */
+            margin-top: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dee2e6; /* light gray */
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2; /* light gray */
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #007bff; /* blue */
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #0056b3; /* darker blue */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Maintenance Status</h1>
+        <table id="statusTable">
+            <tr>
+                <th>Event</th>
+                <th>Date & Time</th>
+            </tr>
+            <tr>
+                <td>Request Accepted</td>
+                <td id="acceptTime">-</td>
+            </tr>
+            <tr>
+                <td>Work Begin</td>
+                <td id="startTime">-</td>
+            </tr>
+            <tr>
+                <td>Work End</td>
+                <td id="completeTime">-</td>
+            </tr>
+        </table>
+		<br><br>
+        <div>
+            <button id="acceptButton" class="btn" onclick="updateTime('acceptTime', 'acceptButton')">Accept</button>
+            <button id="startButton" class="btn" onclick="updateTime('startTime', 'startButton')">Start</button>
+            <button id="completeButton" class="btn" onclick="updateTime('completeTime', 'completeButton')">Complete</button>
+        </div>
+    </div>
+
+    <script>
+        function updateTime(cellId, buttonId) {
+            var now = new Date();
+            var timeString = now.toLocaleString();
+            document.getElementById(cellId).textContent = timeString;
+            document.getElementById(buttonId).disabled = true;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+// Include your database connection file
+include('db_connection.php');
+
+// Get the ID from the URL
+$id = $_GET['id'];
+
+// Query the database to retrieve property data based on the ID
+$query = "SELECT * FROM eventss WHERE id = $id";
+$result = mysqli_query($conn, $query);
+
+// Check if the query was successful and if the property exists
+if ($result && mysqli_num_rows($result) > 0) {
+    // Fetch property data
+    $property = mysqli_fetch_assoc($result);
+    // Extract property details
+    $logTime = $property['logTime'];
+    $startTime = $property['startTime'];
+    $endTime = $property['endTime'];
+    // Output HTML content for the property page
+    echo '<!DOCTYPE html>
+
+<head>
+    
+    <title>Maintenance Status</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa; /* light gray */
+            color: #333; /* dark gray */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff; /* white */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff; /* blue */
+            margin-top: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dee2e6; /* light gray */
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2; /* light gray */
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #007bff; /* blue */
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #0056b3; /* darker blue */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Maintenance Status</h1>
+        <table id="statusTable">
+            <tr>
+                <th>Event</th>
+                <th>Date & Time</th>
+            </tr>
+            <tr>
+                <td>Log Time</td>
+                <td id="acceptTime">-</td>
+            </tr>
+            <tr>
+                <td>Work Begin</td>
+                <td id="startTime">-</td>
+            </tr>
+            <tr>
+                <td>Work End</td>
+                <td id="completeTime">-</td>
+            </tr>
+        </table>
+		<br><br>
+        <div>
+            <button id="acceptButton" class="btn" onclick="updateTime(\'acceptTime\', \'acceptButton\')">Accept</button>
+            <button id="startButton" class="btn" onclick="updateTime(\'startTime\', \'startButton\')">Start</button>
+            <button id="completeButton" class="btn" onclick="updateTime(\'completeTime\', \'completeButton\')">Complete</button>
+        </div>
+    </div>
+
+    <script>
+        function updateTime(cellId, buttonId) {
+            var now = new Date();
+            var timeString = now.toLocaleString();
+            document.getElementById(cellId).textContent = timeString;
+            document.getElementById(buttonId).disabled = true;
+        }
+    </script>
+</body>
+</html>';
+} else {
+    // Property not found, display an error message or redirect to an error page
+    echo "Property not found";
+}
+?>
+
+
+
+
+
+
+<?php
+// Include your database connection file
+include('db_connection.php');
+
+// Get the ID from the URL
+$id = $_GET['id'];
+
+// Query the database to retrieve property data based on the ID
+$query = "SELECT * FROM eventss WHERE id = $id";
+$result = mysqli_query($conn, $query);
+
+// Check if the query was successful and if the property exists
+if ($result && mysqli_num_rows($result) > 0) {
+    // Fetch property data
+    $property = mysqli_fetch_assoc($result);
+    // Extract property details
+    $logTime = $property['logTime'];
+    $startTime = $property['startTime'];
+    $endTime = $property['endTime'];
+    // Output HTML content for the property page
+    echo '<!DOCTYPE html>
+
+<head>
+    
+    <title>Maintenance Status</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa; /* light gray */
+            color: #333; /* dark gray */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff; /* white */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff; /* blue */
+            margin-top: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dee2e6; /* light gray */
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2; /* light gray */
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #007bff; /* blue */
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #0056b3; /* darker blue */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Maintenance Status</h1>
+        <table id="statusTable">
+            <tr>
+                <th>Event</th>
+                <th>Date & Time</th>
+            </tr>
+            <tr>
+                <td>Log Time</td>
+                <td id="logTime">-</td>
+            </tr>
+            <tr>
+                <td>Work Begin</td>
+                <td id="startTime">-</td>
+            </tr>
+            <tr>
+                <td>Work End</td>
+                <td id="endTime">-</td>
+            </tr>
+        </table>
+		<br><br>
+        <div>
+            <button id="startButton" class="btn" onclick="updateTime(\'startTime\', \'startButton\')">Start</button>
+            <button id="completeButton" class="btn" onclick="updateTime(\'endTime\', \'completeButton\')">Complete</button>
+        </div>
+    </div>
+
+   <script>
+    function updateTime(buttonId) {
+        var now = new Date();
+        var timeString = now.toLocaleString();
+        document.getElementById(buttonId).textContent = timeString;
+        document.getElementById(buttonId).disabled = true;
+        
+        // Determine $cellId based on the button clicked
+        var cellId;
+        switch(buttonId) {
+            case \'acceptButton\':
+                cellId = \'logTime\';
+                break;
+            case \'startButton\':
+                cellId = \'startTime\';
+                break;
+            case \'completeButton\':
+                cellId = \'endTime\';
+                break;
+            default:
+                // Handle invalid button
+                return;
+        }
+
+        
+       
+    }
+</script>
+
+
+</body>
+</html>';
+} else {
+    // Property not found, display an error message or redirect to an error page
+    echo "Property not found";
+
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Correction
+ 	Route cause
+	Corrective action
+	Spare	
+	Intimation time 	
+	Breakdown start	
+	Breakdown stop	
+	Breakdown time	
+	Response time	
+	Breakdown Hr. per month
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+//If any of the fields is left empty in the form; this will throw error
+include 'db_connection.php';
+error_reporting(E_ALL); ini_set('display_errors', 1);
+
+if(isset($_POST['Submit'])){
+
+    $machineId = $_POST["machine_id"];
+    $machineName = $_POST["machine_name"];
+    $costCenter = $_POST["cost_center"];
+    $typeOfBreakdown = $_POST["breakdown_type"];
+    
+	$file = $_FILES['file'];
+	$name = $file['name'];
+	$path = "/images/" . basename($name);
+if (move_uploaded_file($file['tmp_name'], $path)) {
+    // Move succeed.
+} else {
+   echo"Move failed";
+   //Move failed 
+   
+	
+	
+}
+    $description = $_POST["description"];
+	$dateTime = $_POST["submission_time"];
+
+    $sql = "INSERT INTO requests (machineId, machineName, costCenter, typeOfBreakdown, image, description,dateTime) VALUES ('$machineId', '$machineName', '$costCenter', '$typeOfBreakdown', '" . mysqli_real_escape_string($path) . "', '$description','$dateTime')";
+
+    if(mysqli_query($conn, $sql)){
+        echo '<div style="text-align: center; color: white; background-color: steelblue; padding: 10px; font-size: 24px; font-weight: bold;"><i class="fas fa-check-circle"></i> Request Submitted Successfully!</div>';
+    } else{
+        echo "ERROR: Could not execute $sql. " . mysqli_error($conn);
+    }
+
+}
+
+?>
