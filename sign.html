@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maintenance Management System</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <style>
+      .centered-button {
+        display: block;
+        width: 100%;
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 15px 20px;
+        text-align: center;
+        background-color: #007BFF; /* Change to desired color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 16px;
+      }
+      .centered-button:hover {
+        background-color: #0056b3; /* Change to desired hover color */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form action="login.php" method="post" class="sign-in-form">
+            <h2 class="title">Service Portal</h2>
+            <br><br>
+            <h2 class="title">Sign In</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Username" name="username" id="username" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" name="pwd" id="pwd" />
+            </div>
+            <input type="submit" value="Login" name="Login" class="btn solid" />
+          </form>
+          <br><br>
+          <a href="insert.php" class="centered-button">Submit Request</a>
+  
+     
+       </div>
+      </div>
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <img src="logo.png" alt="WIKA">
+            <br><br><br>
+          </div>
+          <img src="./img/log.svg" class="image" alt="">
+        </div>	
+	 
+        <div class="panel right-panel">
+   
+          <div class="content">
+            <img src="logo.png" alt="WIKA">
+            <br><br><br>
+          </div>
+          <img src="./img/register.svg" class="image" alt="Image">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
